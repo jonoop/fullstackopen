@@ -1,0 +1,94 @@
+#app-container {
+    padding: 40px 20px 0 20px;
+  }
+  
+  h2 {
+    margin: 15px 0;
+  }
+  
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #search-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+  }
+  
+  .input-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  input {
+    width: 75%;
+    padding: 5px;
+    font-size: 16px;
+  }
+  
+  #submit-container {
+    width: 80px;
+    align-self: flex-end;
+  }
+  
+  #submit {
+    padding: 8px 5px;
+    background: rgb(0, 162, 255);
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    width: 80px;
+  }
+  
+  .delete {
+    background: red;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  
+  .person-info {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    background: rgb(233, 232, 232);
+    padding: 5px;
+  }
+  
+  #success {
+    border: solid green;
+    color: green;
+    font-weight: 700;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  #error {
+    border: solid red;
+    color: red;
+    font-weight: 700;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  #success-container,
+  #error-container {
+    height: auto;
+    width: 100%;
+    margin-bottom: 10px;
+  }
