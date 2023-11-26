@@ -10,7 +10,8 @@
     "build:ui": "rm -rf dist && cd ../../part2/demo && npm run build && cp -r dist ../../part3/courseinfo",
     "deploy": "fly deploy",
     "deploy:full": "npm run build:ui && npm run deploy",
-    "logs:prod": "fly logs"
+    "logs:prod": "fly logs",
+    "lint": "eslint ."
   },
   "keywords": [],
   "author": "",
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "@flydotio/dockerfile": "^0.4.11",
+    "eslint": "^8.54.0",
     "nodemon": "^3.0.1"
   }
 }

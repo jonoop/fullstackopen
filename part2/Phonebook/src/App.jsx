@@ -25,6 +25,7 @@ const App = () => {
       });
   }, []);
 
+
   useEffect(() => {
     filterPeople();
   }, [searchValue]);
@@ -51,7 +52,7 @@ const App = () => {
             .update(person.id, updatedPerson)
             .then(() => {
               setMessage(`Phone number is updated for ${person.name}`);
-              setPersons(persons);
+              setPersons(persons.map(p=>p.id !== person.id ? p : updatedPerson));
               setNewName('');
               setNewNumber('');
               removeMessage();
@@ -115,7 +116,9 @@ const App = () => {
   const deletePerson = (id, name) => {
     if (window.confirm(`Delete ${name}?`)) {
       personService.deleteId(id);
-      setPersons(persons);
+      setPersons(
+        persons.filter((person) => person.id !== id)
+      );
     }
   };
 
