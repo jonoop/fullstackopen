@@ -1,0 +1,37 @@
+const Note = require('../models/note');
+
+const initialNotes = [
+  {
+    content: 'HTML is Easy',
+    important: false,
+  },
+  {
+    content:
+      'Browser can execute only Javascript',
+    important: true,
+  },
+];
+
+const nonExitingId = async () => {
+  const note = new Note({
+    content: 'willremovethissoon',
+  });
+  await note.save();
+  await note.deleteOne();
+
+  return note._id.toString();
+};
+
+const notesInDb = async () => {
+  const notes = await Note.find({});
+
+  return notes.map((note) =>
+    note.toJSON()
+  );
+};
+
+module.exports = {
+  initialNotes,
+  nonExitingId,
+  notesInDb,
+};
