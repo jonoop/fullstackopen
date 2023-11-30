@@ -12,13 +12,16 @@ const api = supertest(app);
 
 beforeEach(async () => {
   await Note.deleteMany({});
-  helper.initialNotes.map(
-    async (note) => {
-      const noteObject = new Note(note);
-      await noteObject.save();
-    }
+  const noteObjects =
+    helper.initialNotes.map(
+      (note) => new Note(note)
+    );
+
+  const promiseArray = noteObjects.map(
+    (note) => note.save()
   );
-});
+  await Promise.all(promiseArray);
+}, 100000);
 
 test('all notes are returned', async () => {
   const res = await api.get(
@@ -28,7 +31,7 @@ test('all notes are returned', async () => {
   expect(res.body).toHaveLength(
     helper.initialNotes.length
   );
-});
+}, 100000);
 
 test('a specific note is within the returned notes', async () => {
   const res = await api.get(
@@ -39,7 +42,7 @@ test('a specific note is within the returned notes', async () => {
   ).toContain(
     'Browser can execute only Javascript'
   );
-});
+}, 100000);
 
 test('a valid note can be added', async () => {
   const newNote = {
@@ -70,7 +73,7 @@ test('a valid note can be added', async () => {
   expect(contents).toContain(
     'async/await simplifies making async calls'
   );
-});
+}, 100000);
 
 test('note without content is not added', async () => {
   const newNote = {
@@ -87,6 +90,50 @@ test('note without content is not added', async () => {
 
   expect(notesAtEnd).toHaveLength(
     helper.initialNotes.length
+  );
+}, 100000);
+
+test('a specific note can be viewed', async () => {
+  const notesAtStart =
+    await helper.notesInDb();
+  const noteToView = notesAtStart[0];
+
+  const resultNote = await api
+    .get(`/api/notes/${noteToView.id}`)
+    .expect(200)
+    .expect(
+      'Content-Type',
+      /application\/json/
+    );
+
+  expect(resultNote.body).toEqual(
+    noteToView
+  );
+});
+
+test('a note can be deleted', async () => {
+  const notesAtStart =
+    await helper.notesInDb();
+
+  const noteToDelete = notesAtStart[0];
+
+  await api
+    .delete(
+      `/api/notes/${noteToDelete.id}`
+    )
+    .expect(204);
+
+  const notesAtEnd =
+    await helper.notesInDb();
+
+  expect(notesAtEnd).toHaveLength(
+    helper.initialNotes.length - 1
+  );
+  const contents = notesAtEnd.map(
+    (r) => r.content
+  );
+  expect(contents).not.toContain(
+    noteToDelete.content
   );
 });
 

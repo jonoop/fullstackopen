@@ -134,7 +134,7 @@ describe('most blogs', () => {
 });
 
 describe('most likes', () => {
-  test.only('most likes', () => {
+  test('most likes', () => {
     expect(mostLikes(blogs)).toEqual({
       author: 'Edsger W. Dijkstra',
       likes: 17,
