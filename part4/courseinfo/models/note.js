@@ -7,6 +7,11 @@ const noteSchema = new mongoose.Schema({
     required: true,
   },
   important: Boolean,
+  user: {
+    type: mongoose.Schema.Types
+      .ObjectId,
+    ref: 'User',
+  },
 });
 
 noteSchema.set('toJSON', {
@@ -14,9 +19,13 @@ noteSchema.set('toJSON', {
     document,
     returnedObject
   ) => {
+    // eslint-disable-next-line no-param-reassign
     returnedObject.id =
+      // eslint-disable-next-line no-underscore-dangle
       returnedObject._id.toString();
+    //  eslint-disable-next-line no-underscore-dangle, no-param-reassign
     delete returnedObject._id;
+    // eslint-disable-next-line no-param-reassign, no-underscore-dangle
     delete returnedObject.__v;
   },
 });

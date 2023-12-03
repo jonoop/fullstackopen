@@ -47,6 +47,6 @@ module.exports = {
         ],
         'newlines-between': 'always',
       },
-    ],
+    ], // import 排序
   },
 };
